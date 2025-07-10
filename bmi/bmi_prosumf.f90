@@ -266,7 +266,7 @@ contains
     end if
 
 	do while (dble(ThisMonth) < floor(time))
-       call this%update()
+       s = this%update()
     end do
 
     bmi_status = BMI_SUCCESS
@@ -612,14 +612,14 @@ contains
         "vegetation__carbon_availability",                 &
         "vegetation__calcium_availability"                 &
       )
-        size        = c_sizeof(climate__temperature(1))
+        size        = 8
         bmi_status  = BMI_SUCCESS
     case ( &
         "management__tillage_flag",                      &
         "management__harvest_flag",                      &
         "plant__functional_type_index"                   &
       )
-        size        = c_sizeof(management__tillage_flag(1))
+        size        = 4
         bmi_status  = BMI_SUCCESS
     case default
         size        = -1
