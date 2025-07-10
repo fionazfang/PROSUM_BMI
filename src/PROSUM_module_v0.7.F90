@@ -2,6 +2,7 @@
 module PROSUM_module
     implicit none
     type :: prosum_model
+		double precision                 :: dt                           ! time step (month)
     end type prosum_model
     double precision, save, allocatable  :: thickness_s(:), &
                                             BottomDepth_s(:), &
