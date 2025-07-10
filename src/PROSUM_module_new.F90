@@ -83,7 +83,20 @@ module PROSUM_module
     double precision, dimension(Num_Monthly_pars+1) :: TempInputsVector 
     integer, parameter :: Num_Monthly_NutrientAvailabilities = 24
     double precision, dimension(Num_Monthly_NutrientAvailabilities+1) :: TempMonthlyInputsVector 
+ 
+! Expose every PROSUM_sub global in this module so the wrapper can see it:
+    integer :: Month_start
+    integer :: nlayer, nnutrient, nplantbits, nplanttypes
+    integer :: Num_months
 
+    real,    allocatable :: Temp_oC(:)
+    real,    allocatable :: PAR_uMpm2s(:)
+    double precision, allocatable :: AtmosphCO2_uLpL(:)
+    real,    allocatable :: Herbivores_kgLivepha(:)
+    real,    allocatable :: Cover(:)
+    integer, allocatable :: Tillage_TF(:)
+    integer, allocatable :: Harvest_TF(:)
+    integer, allocatable :: PlantType(:)
     
 contains  
     subroutine SoilTrECProsum_allocate(nlayer,nnutrient,nplantbits,nplanttypes,Num_months_of_parameters)
