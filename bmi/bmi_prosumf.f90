@@ -438,7 +438,7 @@ contains
     integer, intent(out) :: count
     integer :: bmi_status
 
-	status = BMI_FAILURE
+	bmi_status = BMI_FAILURE
   end function prosum_grid_edge_count
 
   ! Get the number of faces in an unstructured grid.
@@ -458,7 +458,7 @@ contains
     integer, dimension(:), intent(out) :: edge_nodes
     integer :: bmi_status
 
-	status = BMI_FAILURE
+	bmi_status = BMI_FAILURE
   end function prosum_grid_edge_nodes
 
   ! Get the face-edge connectivity.
@@ -963,18 +963,17 @@ contains
   end function prosum_set_at_indices_double
 
   ! A non-BMI helper routine to advance the model by a fractional time step.
-  subroutine update_frac(this, time_frac)
-    class (bmi_prosum), intent(inout) :: this
-    double precision, intent(in) :: time_frac
-    real :: time_step
-
-    if (time_frac > 0.0) then
-       time_step = this%model%dt
-       this%model%dt = time_step*real(time_frac)
-       call advance_in_time(this%model)
-       this%model%dt = time_step
-    end if
-  end subroutine update_frac
+!  subroutine update_frac(this, time_frac)
+!    class (bmi_prosum), intent(inout) :: this
+!    double precision, intent(in) :: time_frac
+!    integer                      ::
+!    if (time_frac > 0.0) then
+!       time_step = this%model%dt
+!       this%model%dt = time_step*real(time_frac)
+!       call advance_in_time(this%model)
+!       this%model%dt = time_step
+!    end if
+!  end subroutine update_frac
 
   ! A non-BMI procedure for model introspection.
   subroutine print_model_info(this)
