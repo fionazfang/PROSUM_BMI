@@ -1,0 +1,8 @@
+Element,DiffusionRadius_e_m,MinCXratio_Leaf_MpM,MinCXratio_Wood_MpM,MinCXratio_Root_MpM,MinCXratio_Mycor_MpM,MinCXratio_Exudate_MpM,MaxCXratio_Leaf_MpM,MaxCXratio_Wood_MpM,MaxCXratio_Root_MpM,MaxCXratio_Mycor_MpM,MaxCXratio_Exudate_MpM,MaxCXratioSenescLeaf_MpM
+C_or_Water,0.01,1,1,1,1,1,1,1,1,1,1,1
+N,0.01,33.2,287.4,84.1,8.6,1000,51.9,287.4,131.5,8.6,1000,218.7
+P,0.01,556,4598.9,1346.2,137.2,16000,830,4598.9,2103.5,137.2,16000,3499.5
+Ca,0.01,458.1,1550.8,587.7,118.3,1992.1,715.7,1550.8,918.4,118.3,1992.1,715.7
+Mg,0.01,2333.8,6718.3,2251.6,602.7,10149.5,3646.6,6718.3,3518.2,602.7,10149.5,3646.6
+K,0.01,227.2,2773.4,777.9,58.7,988.3,355.1,2773.4,1215.5,58.7,988.3,1497
+ ,,,,,,,,,,,,
