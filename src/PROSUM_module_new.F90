@@ -86,7 +86,7 @@ module PROSUM_module
  
 ! Expose every PROSUM_sub global in this module so the wrapper can see it:
     integer :: Month_start
-    integer :: nlayer, nnutrient, nplantbits, nplanttypes
+    integer :: nlayer, nnutrient, nplantbits, nplanttypesgfortran
     integer :: Num_months
 
     real,    allocatable :: Temp_oC(:)
