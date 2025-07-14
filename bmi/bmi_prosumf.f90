@@ -162,13 +162,14 @@ contains
     names => output_items
     bmi_status = BMI_SUCCESS
   end function prosum_output_var_names
-  
+ 
   
   ! BMI initializer.
   function prosum_initialize(this, config_file) result (bmi_status)
     class (bmi_prosum), intent(out) :: this
     character (len=*), intent(in) :: config_file
     integer :: bmi_status
+   
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months)
     call FillArrays(Num_months, StandAlone=1)

@@ -203,6 +203,17 @@ contains
         end if ! (StandAlone == 1)
 
     end subroutine FillArrays
+    
+    subroutine print_info(model)
+      type(prosum_model), intent(in) :: model
+      write(*,*) '*** PROSUM Plant Productivity Model ***'
+      write(*,*) 'PROSUM predicts plant production responses to water, temperature, light, CO2, and nutrient limitations.'
+      write(*,*) 'Supported elements: C, N, P, Ca, Mg, K (extensible)'
+      write(*,*) '----------------------------------------------'
+      write(*,*) 'Base directory: ', basedir
+      write(*,*) 'Simulation length (months):', Month_end
+      write(*,*) 'Current simulation month:', ThisMonth
+    end subroutine print_info
 
 
     subroutine SoilTrECProsum_deallocate
