@@ -11,14 +11,12 @@ program bmi_main
   integer, parameter :: ndims = 1
 
   type (bmi_prosum) :: model
-  integer :: arg_count = 0
-  character (len=80) :: arg
-  integer :: i, j, s
+  integer :: arg_count, s
   integer :: grid1, grid2, grid_size1, grid_size2, grid_shape(ndims)
   double precision :: current_time, end_time
   double precision, allocatable :: buf1(:), buf2(:)
 
-  do while (arg_count <= 1)
+  do while (arg_count = 1)
     call get_command_argument(arg_count, arg)
     arg_count = arg_count + 1
   end do
@@ -30,7 +28,7 @@ program bmi_main
   open(file_unit, file=output_file)
 
   write(file_unit,"(a)") "Initialize model."
-  s = model%initialize(arg)
+  s = model%initialize("")
 
   s = model%get_current_time(current_time)
   s = model%get_end_time(end_time)

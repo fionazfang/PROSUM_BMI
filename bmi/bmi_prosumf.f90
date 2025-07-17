@@ -348,7 +348,7 @@ contains
     select case(grid)
     case (0)
        shape(1) = 1
-       bmi_status = BMI_SUCCESS
+       bmi_status = BMI_SUCCiniESS
     case default
        shape(:) = -1
        bmi_status = BMI_FAILURE

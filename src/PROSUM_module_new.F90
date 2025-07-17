@@ -1,6 +1,14 @@
 
 module PROSUM_module
     implicit none
+    
+    private ! avoid cmake error of dummy arg
+	public :: prosum_model
+	public :: SoilTrECProsum_allocate
+	public :: FillArrays
+	public :: print_info
+	public :: SoilTrECProsum_deallocate
+  
     type :: prosum_model
     end type prosum_model
     
@@ -100,6 +108,8 @@ module PROSUM_module
     
 contains  
     subroutine SoilTrECProsum_allocate(nlayer,nnutrient,nplantbits,nplanttypes,Num_months_of_parameters)
+
+		implicit none
 
         integer :: nlayer       ! (suffix = _s): 1=Top SoilLayer,2=second SoilLayer down, ...
         integer :: nnutrient    ! (suffix = _e): 1=C, 2=N, 3=P, 4=Ca, 5=Mg, 6=K
