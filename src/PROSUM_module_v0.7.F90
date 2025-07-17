@@ -1,9 +1,6 @@
 
 module PROSUM_module
     implicit none
-    type :: prosum_model
-    end type prosum_model
-    
     double precision, save, allocatable  :: thickness_s(:), &
                                             BottomDepth_s(:), &
                                             ThicknessProp_s(:), & 
@@ -83,8 +80,8 @@ module PROSUM_module
     double precision, dimension(Num_Monthly_pars+1) :: TempInputsVector 
     integer, parameter :: Num_Monthly_NutrientAvailabilities = 24
     double precision, dimension(Num_Monthly_NutrientAvailabilities+1) :: TempMonthlyInputsVector 
+ 
 
-    
 contains  
     subroutine SoilTrECProsum_allocate(nlayer,nnutrient,nplantbits,nplanttypes,Num_months_of_parameters)
 
