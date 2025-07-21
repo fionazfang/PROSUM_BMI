@@ -16,15 +16,15 @@ configure_file(
 
 # 3. Build the shared BMI wrapper library
 add_library(bmi_prosum SHARED
-  bmi_prosum.f90    # your BMI module (initialize/update/etc)
+  bmi_prosumf.f90    
 )
 target_include_directories(bmi_prosum PRIVATE
-  ${BMIF_INCLUDE_DIRS}           # bmif_2_0.mod
-  ${CMAKE_INSTALL_PREFIX}/include # prosum_core .mod files
+  ${BMIF_INCLUDE_DIRS}                  # bmif_2_0.mod
+  ${CMAKE_CURRENT_SOURCE_DIR}/../src    # prosum_module.mod
 )
 target_compile_options(bmi_prosum PRIVATE ${BMIF_CFLAGS_OTHER})
 target_link_libraries(bmi_prosum PRIVATE
-  prosum_core                   # your core model
+  prosum_core                   
   ${BMIF_LIBRARIES}
 )
 

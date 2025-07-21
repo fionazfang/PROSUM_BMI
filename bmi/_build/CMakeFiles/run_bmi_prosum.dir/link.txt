@@ -1,0 +1,1 @@
+/usr/bin/f95 CMakeFiles/run_bmi_prosum.dir/bmi_main.f90.o -o run_bmi_prosum  -Wl,-rpath,/home/ziyfan/PROSUM_BMI/bmi/_build: libbmi_prosum.so 

@@ -1,0 +1,1 @@
+/usr/bin/gfortran -fPIC -ffree-form -ffree-line-length-none -shared -Wl,-soname,libprosum_core.so -o libprosum_core.so CMakeFiles/prosum_core.dir/PROSUM_module_v0.7.F90.o CMakeFiles/prosum_core.dir/PROSUM_sub_v0.8.f90.o CMakeFiles/prosum_core.dir/PROSUM_main_v0.5.f90.o 
