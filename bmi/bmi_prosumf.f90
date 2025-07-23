@@ -21,7 +21,6 @@ module bmiprosumf
 
   type, extends (bmi) :: bmi_prosum
      private
-     type (prosum_model) :: model
    contains
      procedure :: get_component_name => prosum_component_name
      procedure :: get_input_item_count => prosum_input_item_count
@@ -169,13 +168,13 @@ contains
     class (bmi_prosum), intent(out) :: this
     character (len=*), intent(in) :: config_file
     integer :: bmi_status
-   
+    implicit none
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months)
     call FillArrays(Num_months, StandAlone=1)
 	 call PROSUM(1, 1, Month_start, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
-	        	Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
-	   	        nlayer, nnutrient, nplantbits, nplanttypes)
+	        	    Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
+	   	       nlayer, nnutrient, nplantbits, nplanttypes)
     
     
     bmi_status = BMI_SUCCESS
