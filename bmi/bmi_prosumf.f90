@@ -173,7 +173,7 @@ contains
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months)
     call FillArrays(Num_months, StandAlone=1)
-	call PROSUM(1, 1, Month_start, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
+	 call PROSUM(1, 1, Month_start, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
 	        	Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
 	   	        nlayer, nnutrient, nplantbits, nplanttypes)
     
