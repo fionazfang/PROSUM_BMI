@@ -242,11 +242,12 @@ contains
   ! Advance model by one time step.
   function prosum_update(this) result (bmi_status)
     class (bmi_prosum), intent(inout) :: this
-    integer :: bmi_status
+    integer :: bmi_status#
+    implicit none
 
     call PROSUM(2, 1, ThisMonth, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
-             Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
-             nlayer, nnutrient, nplantbits, nplanttypes)
+                Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
+                nlayer, nnutrient, nplantbits, nplanttypes)
     ThisMonth = ThisMonth + 1
     
     bmi_status = BMI_SUCCESS
@@ -700,6 +701,7 @@ contains
     character(len=*), intent(in)      :: name
     integer,         intent(inout)    :: dest(:)
     integer                         :: bmi_status
+    implicit none
 
     select case (name)
     case ("management__tillage_flag")
@@ -723,6 +725,7 @@ contains
     character(len=*),   intent(in)    :: name
     double precision,   intent(inout) :: dest(:)
     integer                            :: bmi_status
+    implicit none
 
     select case (name)
     case ("climate__temperature")
@@ -859,6 +862,7 @@ contains
     character (len=*), intent(in) :: name
     integer, intent(in) :: src(:)
     integer :: bmi_status
+    implicit none
 
     select case(name)
     case ("management__tillage_flag")
@@ -881,6 +885,7 @@ contains
     character (len=*), intent(in) :: name
     real, intent(in) :: src(:)
     integer :: bmi_status
+    implicit none
 
     bmi_status = BMI_FAILURE
   end function prosum_set_float
