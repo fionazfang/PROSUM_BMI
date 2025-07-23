@@ -724,7 +724,7 @@ contains
     class (bmi_prosum), intent(in)    :: this
     character(len=*),   intent(in)    :: name
     double precision,   intent(inout) :: dest(:)
-    integer                            :: bmi_status
+    integer                           :: bmi_status
     implicit none
 
     select case (name)
