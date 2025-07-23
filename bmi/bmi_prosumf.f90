@@ -165,10 +165,10 @@ contains
   
   ! BMI initializer.
   function prosum_initialize(this, config_file) result (bmi_status)
+    implicit none
     class (bmi_prosum), intent(out) :: this
     character (len=*), intent(in) :: config_file
     integer :: bmi_status
-    implicit none
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months)
     call FillArrays(Num_months, StandAlone=1)
@@ -241,9 +241,9 @@ contains
 
   ! Advance model by one time step.
   function prosum_update(this) result (bmi_status)
-    class (bmi_prosum), intent(inout) :: this
-    integer :: bmi_status#
     implicit none
+    class (bmi_prosum), intent(inout) :: this
+    integer :: bmi_status
 
     call PROSUM(2, 1, ThisMonth, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
                 Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
@@ -697,11 +697,11 @@ contains
 
   function prosum_get_int(this, name, dest) result (bmi_status)
     use PROSUM_module               
+    implicit none
     class (bmi_prosum), intent(in)    :: this
     character(len=*), intent(in)      :: name
     integer,         intent(inout)    :: dest(:)
     integer                         :: bmi_status
-    implicit none
 
     select case (name)
     case ("management__tillage_flag")
@@ -721,11 +721,11 @@ contains
   end function prosum_get_int
 
   function prosum_get_double(this, name, dest) result (bmi_status)
+    implicit none
     class (bmi_prosum), intent(in)    :: this
     character(len=*),   intent(in)    :: name
     double precision,   intent(inout) :: dest(:)
     integer                           :: bmi_status
-    implicit none
 
     select case (name)
     case ("climate__temperature")
@@ -858,11 +858,11 @@ contains
 
   ! Set new integer values.
   function prosum_set_int(this, name, src) result (bmi_status)
+    implicit none
     class (bmi_prosum), intent(inout) :: this
     character (len=*), intent(in) :: name
     integer, intent(in) :: src(:)
     integer :: bmi_status
-    implicit none
 
     select case(name)
     case ("management__tillage_flag")
@@ -881,11 +881,11 @@ contains
 
   ! Set new real values.
   function prosum_set_float(this, name, src) result (bmi_status)
+    implicit none
     class (bmi_prosum), intent(inout) :: this
     character (len=*), intent(in) :: name
     real, intent(in) :: src(:)
     integer :: bmi_status
-    implicit none
 
     bmi_status = BMI_FAILURE
   end function prosum_set_float
