@@ -1,17 +1,6 @@
 
 module PROSUM_module
     implicit none
-    
-    private ! avoid cmake error of dummy arg
-	public :: prosum_model
-	public :: SoilTrECProsum_allocate
-	public :: FillArrays
-	public :: print_info
-	public :: SoilTrECProsum_deallocate
-  
-    type :: prosum_model
-    end type prosum_model
-    
     double precision, save, allocatable  :: thickness_s(:), &
                                             BottomDepth_s(:), &
                                             ThicknessProp_s(:), & 

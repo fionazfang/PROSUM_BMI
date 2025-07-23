@@ -1,8 +1,6 @@
 
 module PROSUM_module
     implicit none
-    type :: prosum_model
-    end type prosum_model
     double precision, save, allocatable  :: thickness_s(:), &
                                             BottomDepth_s(:), &
                                             ThicknessProp_s(:), & 
@@ -83,6 +81,20 @@ module PROSUM_module
     integer, parameter :: Num_Monthly_NutrientAvailabilities = 24
     double precision, dimension(Num_Monthly_NutrientAvailabilities+1) :: TempMonthlyInputsVector 
  
+! 2025/07/23 update: Expose every PROSUM_sub global in this module so the wrapper can see it:
+    integer :: Month_start
+    integer :: nlayer, nnutrient, nplantbits, nplanttypesgfortran
+    integer :: Num_months
+
+    real,    allocatable :: Temp_oC(:)
+    real,    allocatable :: PAR_uMpm2s(:)
+    double precision, allocatable :: AtmosphCO2_uLpL(:)
+    real,    allocatable :: Herbivores_kgLivepha(:)
+    real,    allocatable :: Cover(:)
+    integer, allocatable :: Tillage_TF(:)
+    integer, allocatable :: Harvest_TF(:)
+    integer, allocatable :: PlantType(:)
+    
 
 contains  
     subroutine SoilTrECProsum_allocate(nlayer,nnutrient,nplantbits,nplanttypes,Num_months_of_parameters)

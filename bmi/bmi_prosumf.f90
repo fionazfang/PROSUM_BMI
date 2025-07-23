@@ -165,6 +165,7 @@ contains
   
   ! BMI initializer.
   function prosum_initialize(this, config_file) result (bmi_status)
+    use PROSUM_module
     implicit none
     class (bmi_prosum), intent(out) :: this
     character (len=*), intent(in) :: config_file
@@ -858,6 +859,7 @@ contains
 
   ! Set new integer values.
   function prosum_set_int(this, name, src) result (bmi_status)
+    use PROSUM_module
     implicit none
     class (bmi_prosum), intent(inout) :: this
     character (len=*), intent(in) :: name
@@ -892,6 +894,7 @@ contains
 
   ! Set new double values.
   function prosum_set_double(this, name, src) result (bmi_status)
+    use PROSUM_module
     class (bmi_prosum), intent(inout) :: this
     character (len=*), intent(in) :: name
     double precision, intent(in) :: src(:)
