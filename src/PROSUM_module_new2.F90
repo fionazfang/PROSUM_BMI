@@ -5,7 +5,6 @@ module PROSUM_module
 ! update 2025/07/24 avoid x                                                                      cmake error of dummy arg 
     private 
     ! all public declarations 
-    public :: prosum_model
     public :: SoilTrECProsum_allocate
     public :: FillArrays
     public :: print_info
@@ -100,7 +99,7 @@ module PROSUM_module
  
 ! 2025/07/23 update: Expose every PROSUM_sub global in this module so the wrapper can see it.
     integer :: Month_start
-    integer :: nlayer, nnutrient, nplantbits, nplanttypesgfortran
+    integer :: nlayer, nnutrient, nplantbits, nplanttypes
     integer :: Num_months
 
     real,    allocatable :: Temp_oC(:)
