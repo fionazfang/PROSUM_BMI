@@ -171,11 +171,21 @@ contains
     character (len=*), intent(in) :: config_file
     integer :: bmi_status
 
+    real :: temp = 20.0
+    real :: par = 1000.0
+    double precision :: co2 = 400.0
+    real :: herbivores = 0.0
+    integer :: tillage = 0
+    integer :: harvest = 0
+    integer :: ptype = 1
+    logical :: plant_cover
+
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months)
     call FillArrays(Num_months, StandAlone=1)
-	 call PROSUM(1, 1, Month_start, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
-	        	    Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
-	   	       nlayer, nnutrient, nplantbits, nplanttypes)
+    
+    call PROSUM(1, 1, Month_start, temp, par, co2, &
+                herbivores, tillage, harvest, ptype, plant_cover, &
+                nlayer, nnutrient, nplantbits, nplanttypes)
     
     
     bmi_status = BMI_SUCCESS
@@ -242,12 +252,22 @@ contains
 
   ! Advance model by one time step.
   function prosum_update(this) result (bmi_status)
+    use PROSUM_module
     implicit none
     class (bmi_prosum), intent(inout) :: this
     integer :: bmi_status
+    
+    real :: temp = 20.0
+    real :: par = 1000.0
+    double precision :: co2 = 400.0
+    real :: herbivores = 0.0
+    integer :: tillage = 0
+    integer :: harvest = 0
+    integer :: ptype = 1
+    logical :: plant_cover
 
-    call PROSUM(2, 1, ThisMonth, Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL, &
-                Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType, Cover, &
+    call PROSUM(2, 1, ThisMonth, temp, par, co2, &
+                herbivores, tillage, harvest, ptype, plant_cover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
     ThisMonth = ThisMonth + 1
     

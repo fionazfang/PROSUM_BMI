@@ -4,7 +4,7 @@ project(prosum_core Fortran)
 include(GNUInstallDirs)
 
 set(PROSUM_SOURCES
-  PROSUM_module_new2.F90
+  PROSUM_module_v0.7.F90
   PROSUM_sub_v0.8.f90
   PROSUM_main_v0.5.f90
 )
