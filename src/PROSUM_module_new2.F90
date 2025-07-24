@@ -1,6 +1,23 @@
 
 module PROSUM_module
     implicit none
+
+! update 2025/07/24 avoid x                                                                      cmake error of dummy arg 
+    private 
+    ! all public declarations 
+    public :: prosum_model
+    public :: SoilTrECProsum_allocate
+    public :: FillArrays
+    public :: print_info
+    public :: SoilTrECProsum_deallocate
+    ! BMI-exposed variables
+    public :: Temp_oC, PAR_uMpm2s, AtmosphCO2_uLpL
+    public :: Herbivores_kgLivepha, Tillage_TF, Harvest_TF, PlantType
+    public :: Month_start, Month_end, ThisMonth
+    public :: NutAvail_e  
+    public :: Cover       
+    public :: nlayer, nnutrient, nplantbits, nplanttypes  
+
     double precision, save, allocatable  :: thickness_s(:), &
                                             BottomDepth_s(:), &
                                             ThicknessProp_s(:), & 
@@ -81,7 +98,7 @@ module PROSUM_module
     integer, parameter :: Num_Monthly_NutrientAvailabilities = 24
     double precision, dimension(Num_Monthly_NutrientAvailabilities+1) :: TempMonthlyInputsVector 
  
-! 2025/07/23 update: Expose every PROSUM_sub global in this module so the wrapper can see it:
+! 2025/07/23 update: Expose every PROSUM_sub global in this module so the wrapper can see it.
     integer :: Month_start
     integer :: nlayer, nnutrient, nplantbits, nplanttypesgfortran
     integer :: Num_months
@@ -171,6 +188,16 @@ contains
         allocate(CurrentCX_eb(nnutrient,nplantbits))
 
         allocate(Kseasonal_bmt(nplantbits,12,nplanttypes))    
+
+! 2025/07/24 update: add the allocation for the new arrays
+        allocate(Temp_oC(Num_months_of_parameters))
+        allocate(PAR_uMpm2s(Num_months_of_parameters))
+        allocate(AtmosphCO2_uLpL(Num_months_of_parameters))
+        allocate(Herbivores_kgLivepha(Num_months_of_parameters))
+        allocate(Tillage_TF(Num_months_of_parameters))
+        allocate(Harvest_TF(Num_months_of_parameters))
+        allocate(PlantType(Num_months_of_parameters))
+        allocate(Cover(nplanttypes))  
         
     end subroutine SoilTrECProsum_allocate
         
@@ -263,7 +290,33 @@ contains
         deallocate(CurrentCX_eb)
         deallocate(Kseasonal_bmt)    
 
+! update 2025/07/24: 
+        deallocate(Temp_oC)
+        deallocate(PAR_uMpm2s)
+        deallocate(AtmosphCO2_uLpL)
+        deallocate(Herbivores_kgLivepha)
+        deallocate(Tillage_TF)
+        deallocate(Harvest_TF)
+        deallocate(PlantType)
+        deallocate(cover)
+
     end subroutine SoilTrECProsum_deallocate
+
+! update 2025/07/24: add print_info function to be called from BMI wrapper
+    subroutine print_info()
+        implicit none
+        
+        write(*,*) "PROSUM (Plant PROduction and SUccession Model)"
+        write(*,*) "Version: 0.8"
+        write(*,*) "Time step: Monthly"
+        write(*,*) "Number of soil layers:", nlayer
+        write(*,*) "Number of nutrients:", nnutrient
+        write(*,*) "Number of plant bits:", nplantbits
+        write(*,*) "Number of plant types:", nplanttypes
+        write(*,*) "Current month:", ThisMonth
+        write(*,*) "Start month:", Month_start
+        write(*,*) "End month:", Month_end
+    end subroutine print_info
 
 !*********************************************************************************
 
