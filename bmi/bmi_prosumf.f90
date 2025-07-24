@@ -13,7 +13,7 @@ module bmiprosumf
        component_name = "PROSUM (Plant Productivity and Succession Model)"
 
   ! Exchange items
-  integer, parameter :: input_item_count = 7
+  integer, parameter :: input_item_count = 0      ! In the first version I will not expose any input variable
   integer, parameter :: output_item_count = 5
   character (len=BMI_MAX_VAR_NAME), target, dimension(input_item_count) :: input_items
   character (len=BMI_MAX_VAR_NAME), target, dimension(output_item_count) :: output_items
@@ -134,16 +134,18 @@ contains
     character (*), pointer, intent(out) :: names(:)
     integer :: bmi_status
 
-    input_items(1)  = 'climate__temperature'
-    input_items(2)  = 'climate__photosynthetic_photon_flux_density'
-    input_items(3)  = 'atmosphere__carbon_dioxide_concentration'
-    input_items(4)  = 'ecology__herbivore_biomass_density'
-    input_items(5)  = 'management__tillage_flag'
-    input_items(6)  = 'management__harvest_flag'
-    input_items(7)  = 'plant__functional_type_index'
+    !input_items(1)  = 'climate__temperature'
+    !input_items(2)  = 'climate__photosynthetic_photon_flux_density'
+    !input_items(3)  = 'atmosphere__carbon_dioxide_concentration'
+    !input_items(4)  = 'ecology__herbivore_biomass_density'
+    !input_items(5)  = 'management__tillage_flag'
+    !input_items(6)  = 'management__harvest_flag'
+    !input_items(7)  = 'plant__functional_type_index'
 
-    names => input_items
-    bmi_status = BMI_SUCCESS
+    !names => input_items
+    !bmi_status = BMI_SUCCESS
+
+    bmi_status = BMI_FAILURE
   end function prosum_input_var_names
 
   ! List output variables.
@@ -307,13 +309,14 @@ contains
 	integer                           :: status
 
 	select case (name)
-	case ("climate__temperature", &
-		  "climate__photosynthetic_photon_flux_density", &
-		  "atmosphere__carbon_dioxide_concentration", &
-		  "ecology__herbivore_biomass_density", &
-		  "management__tillage_flag", &
-		  "management__harvest_flag", &
-		  "plant__functional_type_index", &
+	case ( &
+        !"climate__temperature", &
+		  !"climate__photosynthetic_photon_flux_density", &
+		  !"atmosphere__carbon_dioxide_concentration", &
+		  !"ecology__herbivore_biomass_density", &
+		  !"management__tillage_flag", &
+		  !"management__harvest_flag", &
+		  !"plant__functional_type_index", &
 		  "vegetation__nitrogen_availability", &
 		  "vegetation__magnesium_availability", &
 		  "vegetation__potassium_availability", &
@@ -526,27 +529,27 @@ contains
     integer :: bmi_status
 
     select case(name)
-    case("climate__temperature")
-       type = "double precision"
-       bmi_status = BMI_SUCCESS
-    case("climate__photosynthetic_photon_flux_density")
-       type = "double precision"
-       bmi_status = BMI_SUCCESS
-    case("atmosphere__carbon_dioxide_concentration")
-       type = "double precision"
-       bmi_status = BMI_SUCCESS
-    case("ecology__herbivore_biomass_density")
-       type = "double precision"
-       bmi_status = BMI_SUCCESS
-    case("management__tillage_flag")
-       type = "integer"
-       bmi_status = BMI_SUCCESS
-    case("management__harvest_flag")
-       type = "integer"
-       bmi_status = BMI_SUCCESS
-    case("plant__functional_type_index")
-       type = "integer"
-       bmi_status = BMI_SUCCESS
+    !case("climate__temperature")
+    !   type = "double precision"
+    !   bmi_status = BMI_SUCCESS
+    !case("climate__photosynthetic_photon_flux_density")
+    !   type = "double precision"
+    !   bmi_status = BMI_SUCCESS
+    !case("atmosphere__carbon_dioxide_concentration")
+    !   type = "double precision"
+    !   bmi_status = BMI_SUCCESS
+    !case("ecology__herbivore_biomass_density")
+    !   type = "double precision"
+    !   bmi_status = BMI_SUCCESS
+    !case("management__tillage_flag")
+    !   type = "integer"
+    !   bmi_status = BMI_SUCCESS
+    !case("management__harvest_flag")
+    !   type = "integer"
+    !   bmi_status = BMI_SUCCESS
+    !case("plant__functional_type_index")
+    !   type = "integer"
+    !   bmi_status = BMI_SUCCESS
     case("vegetation__nitrogen_availability")
        type = "double precision"
        bmi_status = BMI_SUCCESS
@@ -577,27 +580,27 @@ contains
 
 
     select case(name)
-    case("climate__temperature")
-       units = "°C"
-       bmi_status = BMI_SUCCESS
-    case("climate__photosynthetic_photon_flux_density")
-       units = "µmol m⁻² s⁻¹"
-       bmi_status = BMI_SUCCESS
-    case("atmosphere__carbon_dioxide_concentration")
-       units = "µL L⁻¹"
-       bmi_status = BMI_SUCCESS
-    case("ecology__herbivore_biomass_density")
-       units = ""
-       bmi_status = BMI_SUCCESS
-    case("management__tillage_flag")
-       units = "1"
-       bmi_status = BMI_SUCCESS
-    case("management__harvest_flag")
-       units = "1"
-       bmi_status = BMI_SUCCESS
-    case("plant__functional_type_index")
-       units = "1"
-       bmi_status = BMI_SUCCESS
+    !case("climate__temperature")
+    !   units = "°C"
+    !   bmi_status = BMI_SUCCESS
+    !case("climate__photosynthetic_photon_flux_density")
+    !   units = "µmol m⁻² s⁻¹"
+    !   bmi_status = BMI_SUCCESS
+    !case("atmosphere__carbon_dioxide_concentration")
+    !   units = "µL L⁻¹"
+    !   bmi_status = BMI_SUCCESS
+    !case("ecology__herbivore_biomass_density")
+    !   units = ""
+    !   bmi_status = BMI_SUCCESS
+    !case("management__tillage_flag")
+    !   units = "1"
+    !   bmi_status = BMI_SUCCESS
+    !case("management__harvest_flag")
+    !   units = "1"
+    !   bmi_status = BMI_SUCCESS
+    !case("plant__functional_type_index")
+    !   units = "1"
+    !   bmi_status = BMI_SUCCESS
     case("vegetation__nitrogen_availability")
        units = "mol m⁻²"
        bmi_status = BMI_SUCCESS
@@ -628,10 +631,10 @@ contains
        
     select case (trim(name))
     case ( &
-        "climate__temperature",                            &
-        "climate__photosynthetic_photon_flux_density",     &
-        "atmosphere__carbon_dioxide_concentration",        &
-        "ecology__herbivore_biomass_density",              &
+    !    "climate__temperature",                            &
+    !    "climate__photosynthetic_photon_flux_density",     &
+    !    "atmosphere__carbon_dioxide_concentration",        &
+    !    "ecology__herbivore_biomass_density",              &
         "vegetation__nitrogen_availability",               &
         "vegetation__magnesium_availability",              &
         "vegetation__potassium_availability",              &
@@ -640,13 +643,13 @@ contains
       )
         size        = 8
         bmi_status  = BMI_SUCCESS
-    case ( &
-        "management__tillage_flag",                      &
-        "management__harvest_flag",                      &
-        "plant__functional_type_index"                   &
-      )
-        size        = 4
-        bmi_status  = BMI_SUCCESS
+    !case ( &
+    !    "management__tillage_flag",                      &
+    !    "management__harvest_flag",                      &
+    !    "plant__functional_type_index"                   &
+    !  )
+    !    size        = 4
+    !    bmi_status  = BMI_SUCCESS
     case default
         size        = -1
         bmi_status  = BMI_FAILURE
@@ -683,18 +686,18 @@ contains
 
     select case(name)
     case ( &
-      "climate__temperature",                            &
-      "climate__photosynthetic_photon_flux_density",     &
-      "atmosphere__carbon_dioxide_concentration",        &
-      "ecology__herbivore_biomass_density",              &
+    !  "climate__temperature",                            &
+    !  "climate__photosynthetic_photon_flux_density",     &
+    !  "atmosphere__carbon_dioxide_concentration",        &
+    !  "ecology__herbivore_biomass_density",              &
       "vegetation__nitrogen_availability",               &
       "vegetation__magnesium_availability",              &
       "vegetation__potassium_availability",              &
       "vegetation__carbon_availability",                 &
-      "vegetation__calcium_availability",                &
-      "management__tillage_flag",                        &
-      "management__harvest_flag",                        &
-      "plant__functional_type_index"                     &
+      "vegetation__calcium_availability"                 &
+    !  "management__tillage_flag",                        &
+    !  "management__harvest_flag",                        &
+    !  "plant__functional_type_index"                     &
     )
       location   = "none"
       bmi_status = BMI_SUCCESS
@@ -729,15 +732,15 @@ contains
     integer                         :: bmi_status
 
     select case (name)
-    case ("management__tillage_flag")
-       dest(1)    = Tillage_TF(1)
-       bmi_status = BMI_SUCCESS
-    case ("management__harvest_flag")
-       dest(1)    = Harvest_TF(1)
-       bmi_status = BMI_SUCCESS
-    case ("plant__functional_type_index")
-       dest(1)    = PlantType(1)
-       bmi_status = BMI_SUCCESS
+    !case ("management__tillage_flag")
+    !   dest(1)    = Tillage_TF(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("management__harvest_flag")
+    !  dest(1)    = Harvest_TF(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("plant__functional_type_index")
+    !   dest(1)    = PlantType(1)
+    !   bmi_status = BMI_SUCCESS
     case default
        dest(1) = -1
        bmi_status = BMI_FAILURE
@@ -753,18 +756,18 @@ contains
     integer                           :: bmi_status
 
     select case (name)
-    case ("climate__temperature")
-       dest(1)    = Temp_oC(1)
-       bmi_status = BMI_SUCCESS
-    case ("climate__photosynthetic_photon_flux_density")
-       dest(1)    = PAR_uMpm2s(1)
-       bmi_status = BMI_SUCCESS
-    case ("atmosphere__carbon_dioxide_concentration")
-       dest(1)    = AtmosphCO2_uLpL(1)
-       bmi_status = BMI_SUCCESS
-    case ("ecology__herbivore_biomass_density")
-       dest(1)    = Herbivores_kgLivepha(1)
-       bmi_status = BMI_SUCCESS
+    !case ("climate__temperature")
+    !   dest(1)    = Temp_oC(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("climate__photosynthetic_photon_flux_density")
+    !   dest(1)    = PAR_uMpm2s(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("atmosphere__carbon_dioxide_concentration")
+    !   dest(1)    = AtmosphCO2_uLpL(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("ecology__herbivore_biomass_density")
+    !   dest(1)    = Herbivores_kgLivepha(1)
+    !   bmi_status = BMI_SUCCESS
     ! (suffix = _e): 1=C, 2=N, 3=P, 4=Ca, 5=Mg, 6=K
     case ("vegetation__carbon_availability")
        dest(1)    = NutAvail_e(1)
@@ -795,12 +798,12 @@ contains
     integer :: bmi_status
 
     select case(name)
-    case ("management__tillage_flag")
-       bmi_status = BMI_FAILURE
-    case ("management__harvest_flag")
-       bmi_status = BMI_FAILURE
-    case ("plant__functional_type_index")
-       bmi_status = BMI_FAILURE
+    !case ("management__tillage_flag")
+    !   bmi_status = BMI_FAILURE
+    !case ("management__harvest_flag")
+    !   bmi_status = BMI_FAILURE
+    !case ("plant__functional_type_index")
+    !   bmi_status = BMI_FAILURE
     case default
        bmi_status = BMI_FAILURE
     end select
@@ -827,10 +830,11 @@ contains
     integer :: bmi_status
 
     select case(name)
-    case ("climate__temperature",                            &
-          "climate__photosynthetic_photon_flux_density",     &
-          "atmosphere__carbon_dioxide_concentration",        &
-          "ecology__herbivore_biomass_density",              &
+    case ( &
+          !"climate__temperature",                            &
+          !"climate__photosynthetic_photon_flux_density",     &
+          !"atmosphere__carbon_dioxide_concentration",        &
+          !"ecology__herbivore_biomass_density",              &
           "vegetation__nitrogen_availability",               &
           "vegetation__magnesium_availability",              &
           "vegetation__potassium_availability",              &
@@ -891,15 +895,15 @@ contains
     integer :: bmi_status
 
     select case(name)
-    case ("management__tillage_flag")
-       Tillage_TF(1) = src(1)
-       bmi_status    = BMI_SUCCESS
-    case ("management__harvest_flag")
-       Harvest_TF(1) = src(1)
-       bmi_status    = BMI_SUCCESS
-    case ("plant__functional_type_index")
-       PlantType(1)  = src(1)
-       bmi_status    = BMI_SUCCESS
+    !case ("management__tillage_flag")
+    !   Tillage_TF(1) = src(1)
+    !   bmi_status    = BMI_SUCCESS
+    !case ("management__harvest_flag")
+    !   Harvest_TF(1) = src(1)
+    !   bmi_status    = BMI_SUCCESS
+    !case ("plant__functional_type_index")
+    !   PlantType(1)  = src(1)
+    !   bmi_status    = BMI_SUCCESS
     case default
        bmi_status = BMI_FAILURE
     end select
@@ -925,18 +929,18 @@ contains
     integer :: bmi_status
 
     select case (name)
-    case ("climate__temperature")
-       Temp_oC(1) = src(1)
-       bmi_status = BMI_SUCCESS
-    case ("climate__photosynthetic_photon_flux_density")
-       PAR_uMpm2s(1) = src(1)
-       bmi_status = BMI_SUCCESS
-    case ("atmosphere__carbon_dioxide_concentration")
-       AtmosphCO2_uLpL(1) = src(1)
-       bmi_status = BMI_SUCCESS
-    case ("ecology__herbivore_biomass_density")
-       Herbivores_kgLivepha(1) = src(1)
-       bmi_status = BMI_SUCCESS
+    !case ("climate__temperature")
+    !   Temp_oC(1) = src(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("climate__photosynthetic_photon_flux_density")
+    !   PAR_uMpm2s(1) = src(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("atmosphere__carbon_dioxide_concentration")
+    !   AtmosphCO2_uLpL(1) = src(1)
+    !   bmi_status = BMI_SUCCESS
+    !case ("ecology__herbivore_biomass_density")
+    !   Herbivores_kgLivepha(1) = src(1)
+    !   bmi_status = BMI_SUCCESS
     case ("vegetation__carbon_availability")
        NutAvail_e(1) = src(1)
        bmi_status    = BMI_SUCCESS
