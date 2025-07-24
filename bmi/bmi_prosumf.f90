@@ -269,6 +269,10 @@ contains
 
 	do while (dble(ThisMonth) < floor(time))
        s = prosum_update(this)
+       if (s /= BMI_SUCCESS) then
+           bmi_status = BMI_FAILURE
+           return
+       endif
     end do
 
     bmi_status = BMI_SUCCESS
