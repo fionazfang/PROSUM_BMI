@@ -188,17 +188,18 @@ contains
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
     call FillArrays(Num_months_of_parameters, StandAlone=1)
 
-    ! time series data for month 1
-    temp = Monthly_pars(1, 2)       
-    par = Monthly_pars(1, 3)        
-    co2 = Monthly_pars(1, 4)        
-    herbivores = Monthly_pars(1, 5) 
-    tillage = int(Monthly_pars(1, 6))
-    harvest = int(Monthly_pars(1, 7))  
-    planttype = int(Monthly_pars(1, 8))
+    ThisMonth = 1
+    
+    temp = Monthly_pars(ThisMonth, 2)       
+    par = Monthly_pars(ThisMonth, 3)        
+    co2 = Monthly_pars(ThisMonth, 4)        
+    herbivores = Monthly_pars(ThisMonth, 5) 
+    tillage = int(Monthly_pars(ThisMonth, 6))
+    harvest = int(Monthly_pars(ThisMonth, 7))  
+    planttype = int(Monthly_pars(ThisMonth, 8))
     plantcover = .false.
 
-    call PROSUM(1, 1, 1, temp, par, co2, &  
+    call PROSUM(1, 1, ThisMonth, temp, par, co2, & 
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
 
