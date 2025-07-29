@@ -93,7 +93,7 @@ module bmiprosumf
           set_value_at_indices_int, &
           set_value_at_indices_float, &
           set_value_at_indices_double
-     procedure :: print_model_info
+    ! procedure :: print_model_info
   end type bmi_prosum
 
 contains
@@ -1002,10 +1002,9 @@ end function prosum_update
 !  end subroutine update_frac
 
   ! A non-BMI procedure for model introspection.
-   subroutine print_model_info(this)
-     class (bmi_prosum), intent(in) :: this
-
-     call print_info()
-   end subroutine print_model_info
+!   subroutine print_model_info(this)
+!     class (bmi_prosum), intent(in) :: this
+!     call print_info()
+!   end subroutine print_model_info
 
 end module bmiprosumf
