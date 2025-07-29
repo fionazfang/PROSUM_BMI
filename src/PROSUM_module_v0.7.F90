@@ -6,7 +6,7 @@ module PROSUM_module
                                             ThicknessProp_s(:), & 
                                             RootProp_s(:),&
                                             RootLengthDensity_s(:),&     ! m root per m3 soil
-                                            MycorLengthDensity_s(:),&    ! m hypha per m3 soil
+                                            MycorLengthDensity_s(SoilTrECProsum_allocate:),&    ! m hypha per m3 soil
                                             TotalRootMycLength_s(:),&    ! total root + hypha in SoilLayer, m per m2 
                                             WaterAccessible_s(:),&       ! water (m) accessible per layer, depends on root length density
                                             WaterPropAccessible_s(:),&   ! water (m) accessible per layer as prop of total accessible over all SoilLayers

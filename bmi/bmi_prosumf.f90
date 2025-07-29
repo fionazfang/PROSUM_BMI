@@ -173,23 +173,18 @@ contains
     character (len=*), intent(in) :: config_file
     integer :: bmi_status
 
-    real :: temp = 20.0
-    real :: par = 1000.0
-    double precision :: co2 = 400.0
-    real :: herbivores = 0.0
-    integer :: tillage = 0
-    integer :: harvest = 0
-    integer :: ptype = 1
-    logical :: plant_cover
+    real :: temp, par, herbivores
+    double precision :: co2
+    integer :: tillage, harvest, planttype, nlayer, nnutrient, nplantbits, nplanttype, Num_months_of_parameters
+    logical :: plantcover
 
-    call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months)
-    call FillArrays(Num_months, StandAlone=1)
+    call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
+    call FillArrays(Num_months_of_parameters, StandAlone=1)
     
-    call PROSUM(1, 1, Month_start, temp, par, co2, &
-                herbivores, tillage, harvest, ptype, plant_cover, &
+    call PROSUM(1, 1, ThisMonth, temp, par, co2, &
+                herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
-    
-    
+
     bmi_status = BMI_SUCCESS
   end function prosum_initialize
 
@@ -259,22 +254,17 @@ contains
     class (bmi_prosum), intent(inout) :: this
     integer :: bmi_status
     
-    real :: temp = 20.0
-    real :: par = 1000.0
-    double precision :: co2 = 400.0
-    real :: herbivores = 0.0
-    integer :: tillage = 0
-    integer :: harvest = 0
-    integer :: ptype = 1
-    logical :: plant_cover
-
+    real :: temp, par, herbivores
+    double precision :: co2
+    integer :: tillage, harvest, planttype, nlayer, nnutrient, nplantbits, nplanttypes
+    logical :: plantcover
+    
     call PROSUM(2, 1, ThisMonth, temp, par, co2, &
-                herbivores, tillage, harvest, ptype, plant_cover, &
+                herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
-    ThisMonth = ThisMonth + 1
     
     bmi_status = BMI_SUCCESS
-  end function prosum_update
+end function prosum_update
 
   ! Advance the model until the given time.
   function prosum_update_until(this, time) result (bmi_status)
