@@ -19,19 +19,14 @@ add_library(bmi_prosum SHARED
   bmi_prosumf.f90    
 )
 
-set_target_properties(bmi_prosum PROPERTIES
-  Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
-)
-
 target_include_directories(bmi_prosum PRIVATE
   ${BMIF_INCLUDE_DIRS}                         # bmif_2_0.mod
   ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # prosum_module.mod
-  ${CMAKE_CURRENT_BINARY_DIR}/modules          # bmiprosumf.mod location
 )
 
 target_link_directories(bmi_prosum PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # libprosum_core.so 
-  $ENV{HOME}/local-bmi/lib64                # libbmif.so 
+  $ENV{HOME}/local-bmi/lib64                 # libbmif.so 
 )
 
 target_compile_options(bmi_prosum PRIVATE ${BMIF_CFLAGS_OTHER})
@@ -44,7 +39,7 @@ target_link_libraries(bmi_prosum PRIVATE
 add_executable(run_bmi_prosum bmi_main.f90)
 target_include_directories(run_bmi_prosum PRIVATE
   ${BMIF_INCLUDE_DIRS}                         # bmif_2_0.mod
-  ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # prosum_module.mod (if needed?)
+  ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # prosum_module.mod (if needed)
 )
 target_link_libraries(run_bmi_prosum PRIVATE bmi_prosum)
 
@@ -54,7 +49,7 @@ install(TARGETS bmi_prosum run_bmi_prosum
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/modules/bmi_prosumf.mod
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bmi_prosumf.mod
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bmi_prosum.pc
