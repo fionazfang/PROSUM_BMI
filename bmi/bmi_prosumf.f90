@@ -178,6 +178,13 @@ contains
     integer :: tillage, harvest, planttype, nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters
     logical :: plantcover
 
+    integer :: nlayer = 4                   
+    integer :: nnutrient = 6                 
+    integer :: nplantbits = 5               
+    integer :: nplanttypes = 6               
+    integer :: Num_months_of_parameters = 12 
+    
+
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
     call FillArrays(Num_months_of_parameters, StandAlone=1)
     
