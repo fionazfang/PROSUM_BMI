@@ -203,7 +203,7 @@ contains
     double precision, intent(out) :: time
     integer :: bmi_status
 
-    time = dble(Month_start)
+    time = 1.0d0
     bmi_status = BMI_SUCCESS
   end function prosum_start_time
 
