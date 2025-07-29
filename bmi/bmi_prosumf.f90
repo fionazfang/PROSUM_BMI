@@ -175,7 +175,7 @@ contains
 
     real :: temp, par, herbivores
     double precision :: co2
-    integer :: tillage, harvest, planttype, nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters
+    integer :: tillage, harvest, planttype
     logical :: plantcover
 
     integer :: nlayer = 4                   
@@ -187,8 +187,17 @@ contains
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
     call FillArrays(Num_months_of_parameters, StandAlone=1)
-    
-    call PROSUM(1, 1, ThisMonth, temp, par, co2, &
+
+    temp = Monthly_pars(1, 2)       ! Temperature for month 1
+    par = Monthly_pars(1, 3)        ! PAR for month 1  
+    co2 = Monthly_pars(1, 4)        ! CO2 for month 1
+    herbivores = Monthly_pars(1, 5) ! Herbivores for month 1
+    tillage = 0
+    harvest = 0  
+    planttype = 1
+    plantcover = .false.
+
+    call PROSUM(1, 1, 1, temp, par, co2, &  
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
 
