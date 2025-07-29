@@ -36,6 +36,10 @@ target_link_libraries(bmi_prosum PRIVATE
 
 # 4. Build the CLI driver
 add_executable(run_bmi_prosum bmi_main.f90)
+target_include_directories(run_bmi_prosum PRIVATE
+  ${BMIF_INCLUDE_DIRS}                         # bmif_2_0.mod
+  ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # prosum_module.mod (if needed)
+)
 target_link_libraries(run_bmi_prosum PRIVATE bmi_prosum)
 
 # 5. Install everything
