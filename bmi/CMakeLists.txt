@@ -25,7 +25,7 @@ target_include_directories(bmi_prosum PRIVATE
 
 target_link_directories(bmi_prosum PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # libprosum_core.so 
-  $ENV{HOME}/local-bmi/lib64                # libbmif.so 
+  $ENV{HOME}/local-bmi/lib64                 # libbmif.so 
 )
 
 target_compile_options(bmi_prosum PRIVATE ${BMIF_CFLAGS_OTHER})
