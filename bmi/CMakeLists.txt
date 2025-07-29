@@ -26,11 +26,12 @@ set_target_properties(bmi_prosum PROPERTIES
 target_include_directories(bmi_prosum PRIVATE
   ${BMIF_INCLUDE_DIRS}                         # bmif_2_0.mod
   ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # prosum_module.mod
+  ${CMAKE_CURRENT_BINARY_DIR}/modules          # bmiprosumf.mod location
 )
 
 target_link_directories(bmi_prosum PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../src/_build    # libprosum_core.so 
-  $ENV{HOME}/local-bmi/lib64                 # libbmif.so 
+  $ENV{HOME}/local-bmi/lib64                # libbmif.so 
 )
 
 target_compile_options(bmi_prosum PRIVATE ${BMIF_CFLAGS_OTHER})
