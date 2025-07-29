@@ -175,7 +175,7 @@ contains
 
     real :: temp, par, herbivores
     double precision :: co2
-    integer :: tillage, harvest, planttype, nlayer, nnutrient, nplantbits, nplanttype, Num_months_of_parameters
+    integer :: tillage, harvest, planttype, nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters
     logical :: plantcover
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
