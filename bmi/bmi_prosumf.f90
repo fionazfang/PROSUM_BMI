@@ -286,6 +286,14 @@ contains
     logical :: plantcover
     integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
     
+    ThisMonth = ThisMonth + 1
+
+    if (ThisMonth > Month_end) then
+      write(*,*) 'Simulation completed at month', Month_end
+      bmi_status = BMI_FAILURE
+      return
+    end if
+
     temp = Monthly_pars(ThisMonth, 2)       
     par = Monthly_pars(ThisMonth, 3)        
     co2 = Monthly_pars(ThisMonth, 4)        
@@ -295,6 +303,7 @@ contains
     planttype = int(Monthly_pars(ThisMonth, 8))  
     plantcover = .false.  
     
+
     ! 31/07/2005 DEBUG: Print values before PROSUM call
     write(*,*) '=== BMI UPDATE DEBUG ==='
     write(*,*) 'ThisMonth =', ThisMonth
@@ -309,7 +318,7 @@ contains
                 nlayer, nnutrient, nplantbits, nplanttypes)
     
     write(*,*) 'PROSUM call completed successfully'
-    ThisMonth = ThisMonth + 1
+
     bmi_status = BMI_SUCCESS
 end function prosum_update
 
