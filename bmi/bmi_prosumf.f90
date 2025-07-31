@@ -316,8 +316,12 @@ contains
     call PROSUM(2, 1, ThisMonth, temp, par, co2, &
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
+
+    write(*,*) 'AFTER PROSUM CALL - NutAvail_e values:'
+    write(*,*) 'C =', NutAvail_e(1), 'N =', NutAvail_e(2)
+    write(*,*) 'P =', NutAvail_e(3), 'Ca=', NutAvail_e(4) 
+    write(*,*) 'Mg=', NutAvail_e(5), 'K =', NutAvail_e(6)
     
-    write(*,*) 'PROSUM call completed successfully'
 
     bmi_status = BMI_SUCCESS
 end function prosum_update
@@ -801,15 +805,6 @@ end function prosum_update
     character(len=*),   intent(in)    :: name
     double precision,   intent(inout) :: dest(:)
     integer                           :: bmi_status
-
-    ! DEBUG: Print NutAvail_e values
-    write(*,*) 'DEBUG: NutAvail_e values:'
-    write(*,*) 'C =', NutAvail_e(1)
-    write(*,*) 'N =', NutAvail_e(2)
-    write(*,*) 'P =', NutAvail_e(3)
-    write(*,*) 'Ca=', NutAvail_e(4)
-    write(*,*) 'Mg=', NutAvail_e(5)
-    write(*,*) 'K =', NutAvail_e(6)
 
     select case (name)
     !case ("climate__temperature")
