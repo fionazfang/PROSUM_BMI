@@ -795,11 +795,21 @@ end function prosum_update
   end function prosum_get_int
 
   function prosum_get_double(this, name, dest) result (bmi_status)
+    use PROSUM_module
     implicit none
     class (bmi_prosum), intent(in)    :: this
     character(len=*),   intent(in)    :: name
     double precision,   intent(inout) :: dest(:)
     integer                           :: bmi_status
+
+    ! DEBUG: Print NutAvail_e values
+    write(*,*) 'DEBUG: NutAvail_e values:'
+    write(*,*) 'C =', NutAvail_e(1)
+    write(*,*) 'N =', NutAvail_e(2)
+    write(*,*) 'P =', NutAvail_e(3)
+    write(*,*) 'Ca=', NutAvail_e(4)
+    write(*,*) 'Mg=', NutAvail_e(5)
+    write(*,*) 'K =', NutAvail_e(6)
 
     select case (name)
     !case ("climate__temperature")
@@ -820,6 +830,7 @@ end function prosum_update
        bmi_status = BMI_SUCCESS
     case ("vegetation__nitrogen_availability")
        dest(1)    = NutAvail_e(2)
+       write(*,*) 'Returning N availability:', dest(1)
        bmi_status = BMI_SUCCESS
     case ("vegetation__magnesium_availability")
        dest(1)    = NutAvail_e(5)
