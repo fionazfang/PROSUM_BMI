@@ -287,10 +287,20 @@ contains
     planttype = int(Monthly_pars(ThisMonth, 8))  
     plantcover = .false.  
     
+    ! 31/07/2005 DEBUG: Print values before PROSUM call
+    write(*,*) '=== BMI UPDATE DEBUG ==='
+    write(*,*) 'ThisMonth =', ThisMonth
+    write(*,*) 'Array bounds: Monthly_pars =', shape(Monthly_pars)
+    write(*,*) 'temp =', temp
+    write(*,*) 'par =', par
+    write(*,*) 'co2 =', co2
+    write(*,*) 'About to call PROSUM...'
+    
     call PROSUM(2, 1, ThisMonth, temp, par, co2, &
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
     
+    write(*,*) 'PROSUM call completed successfully'
     ThisMonth = ThisMonth + 1
     bmi_status = BMI_SUCCESS
 end function prosum_update
