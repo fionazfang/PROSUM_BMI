@@ -183,10 +183,10 @@ contains
     integer :: nplantbits = 5               
     integer :: nplanttypes = 6               
     integer :: Num_months_of_parameters 
-    character(len=120) :: TempFilePath
+    character(len=120) :: param_file_path
 
-    TempFilePath = "PROSUM_parameters.csv"
-    open(10, file=TempFilePath)
+    param_file_path = "PROSUM_parameters.csv"
+    open(10, file=param_file_path)
     read(10,*) 
     read(10,*) Num_months_of_parameters 
     close(10)
