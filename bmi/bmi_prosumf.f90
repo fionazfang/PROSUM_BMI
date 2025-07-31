@@ -182,8 +182,16 @@ contains
     integer :: nnutrient = 6                 
     integer :: nplantbits = 5               
     integer :: nplanttypes = 6               
-    integer :: Num_months_of_parameters = 12 
+    integer :: Num_months_of_parameters 
+    character(len=120) :: TempFilePath
+
+    TempFilePath = "PROSUM_parameters.csv"
+    open(10, file=TempFilePath)
+    read(10,*) 
+    read(10,*) Num_months_of_parameters 
+    close(10)
     
+    write(*,*) 'Simulation length:', Num_months_of_parameters, 'months'
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
     call FillArrays(Num_months_of_parameters, StandAlone=1)
