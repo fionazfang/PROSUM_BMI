@@ -177,12 +177,8 @@ contains
     double precision :: co2
     integer :: tillage, harvest, planttype
     logical :: plantcover
-
-    integer :: nlayer = 4                   
-    integer :: nnutrient = 6                 
-    integer :: nplantbits = 5               
-    integer :: nplanttypes = 6               
-    integer :: Num_months_of_parameters 
+    integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
+    integer :: Num_months_of_parameters, ThisSoilLayer
     character(len=120) :: param_file_path
 
     param_file_path = "PROSUM_parameters.csv"
@@ -196,8 +192,19 @@ contains
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
     call FillArrays(Num_months_of_parameters, StandAlone=1)
 
+    ! Set up soil layers like the original model
+    BottomDepth_s = (/0.05,0.1,0.5,2.0/)
+    Thickness_s(1) = BottomDepth_s(1)
+    do ThisSoilLayer = 2,nlayer,1 
+        Thickness_s(ThisSoilLayer) = BottomDepth_s(ThisSoilLayer) - BottomDepth_s(ThisSoilLayer - 1)
+    end do
+    do ThisSoilLayer = 1,nlayer,1 
+        ThicknessProp_s(ThisSoilLayer) = Thickness_s(ThisSoilLayer) / sum(Thickness_s, dim = 1)  
+    end do
+
     ThisMonth = 1
     
+    ! Get climate/management data
     temp = Monthly_pars(ThisMonth, 2)       
     par = Monthly_pars(ThisMonth, 3)        
     co2 = Monthly_pars(ThisMonth, 4)        
@@ -206,6 +213,21 @@ contains
     harvest = int(Monthly_pars(ThisMonth, 7))  
     planttype = int(Monthly_pars(ThisMonth, 8))
     plantcover = .false.
+
+    ! Set up initial nutrients like the original model
+    WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
+    NutAvail_es(2,:) = Monthly_nutrients(ThisMonth, 6:9)   ! N by soil layer
+    NutAvail_es(3,:) = Monthly_nutrients(ThisMonth, 10:13) ! P by soil layer
+    NutAvail_es(4,:) = Monthly_nutrients(ThisMonth, 14:17) ! Ca by soil layer
+    NutAvail_es(5,:) = Monthly_nutrients(ThisMonth, 18:21) ! Mg by soil layer
+    NutAvail_es(6,:) = Monthly_nutrients(ThisMonth, 22:25) ! K by soil layer
+
+    ! Sum across soil layers
+    NutAvail_e(2) = NutAvail_es(2,1) + NutAvail_es(2,2) + NutAvail_es(2,3) + NutAvail_es(2,4) ! N
+    NutAvail_e(3) = NutAvail_es(3,1) + NutAvail_es(3,2) + NutAvail_es(3,3) + NutAvail_es(3,4) ! P
+    NutAvail_e(4) = NutAvail_es(4,1) + NutAvail_es(4,2) + NutAvail_es(4,3) + NutAvail_es(4,4) ! Ca
+    NutAvail_e(5) = NutAvail_es(5,1) + NutAvail_es(5,2) + NutAvail_es(5,3) + NutAvail_es(5,4) ! Mg
+    NutAvail_e(6) = NutAvail_es(6,1) + NutAvail_es(6,2) + NutAvail_es(6,3) + NutAvail_es(6,4) ! K
 
     call PROSUM(1, 1, ThisMonth, temp, par, co2, & 
                 herbivores, tillage, harvest, planttype, plantcover, &
@@ -216,8 +238,13 @@ contains
 
   ! BMI finalizer.
   function prosum_finalize(this) result (bmi_status)
+    use PROSUM_module
     class (bmi_prosum), intent(inout) :: this
     integer :: bmi_status
+
+    call PROSUM(3, 1, ThisMonth, 0.0, 0.0, 0.0d0, &
+                0.0, 0, 0, 1, .false., &
+                4, 6, 5, 6)
 
     call SoilTrECProsum_deallocate()
     bmi_status = BMI_SUCCESS
@@ -305,6 +332,7 @@ contains
     plantcover = .false.  
 
     ! Calculate nutrient availabilities like the original model does
+    ! This is for initialization or for update? 
     WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
 
     NutAvail_es(2,:) = Monthly_nutrients(ThisMonth, 6:9)   ! N by soil layer
