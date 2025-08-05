@@ -1,7 +1,0 @@
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/prosum_core.dir
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/edit_cache.dir
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/rebuild_cache.dir
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/list_install_components.dir
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/install.dir
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/install/local.dir
-/home/ziyfan/PROSUM_BMI/src/CMakeFiles/install/strip.dir

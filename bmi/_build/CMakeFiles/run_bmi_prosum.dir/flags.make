@@ -4,7 +4,7 @@
 # compile Fortran with /usr/bin/f95
 Fortran_DEFINES = 
 
-Fortran_INCLUDES = 
+Fortran_INCLUDES = -I/home/ziyfan/local-bmi/include -I/home/ziyfan/PROSUM_BMI/bmi/../src/_build
 
 Fortran_FLAGS = 
 

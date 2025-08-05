@@ -1,0 +1,8 @@
+PlantBit,KdroughtSlope,KdroughtConstant,KherbivorySlope,KherbivoryMax,KTillage
+Leaf,-10,0.1,0.000487,0.95,0.95
+Wood,0,0,0.0000256,0.05,0.95
+Root,-5,0.1,0.000256,0.5,0.95
+Mycor,-5,0.1,0.000256,0.5,0.95
+Exudate,0,0,0,0,0
+,,,,,
+ ,,,,,

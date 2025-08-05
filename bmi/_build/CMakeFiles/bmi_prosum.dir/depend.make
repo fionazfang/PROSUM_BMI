@@ -3,7 +3,7 @@
 
 # Note that incremental build could trigger a call to cmake_copy_f90_mod on each re-build
 CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o: /home/ziyfan/local-bmi/include/bmif_2_0.mod
-CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o: /home/ziyfan/PROSUM_BMI/bmi/../src/prosum_module.mod
+CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o: /home/ziyfan/PROSUM_BMI/bmi/../src/_build/prosum_module.mod
 CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o.provides.build: CMakeFiles/bmi_prosum.dir/bmiprosumf.mod.stamp
 CMakeFiles/bmi_prosum.dir/bmiprosumf.mod.stamp: CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o
 	$(CMAKE_COMMAND) -E cmake_copy_f90_mod bmiprosumf.mod CMakeFiles/bmi_prosum.dir/bmiprosumf.mod.stamp GNU

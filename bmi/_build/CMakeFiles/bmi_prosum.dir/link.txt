@@ -1,1 +1,1 @@
-/usr/bin/f95 -fPIC -shared -Wl,-soname,libbmi_prosum.so -o libbmi_prosum.so CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o  -lprosum_core -lbmif 
+/usr/bin/f95 -fPIC -shared -Wl,-soname,libbmi_prosum.so -o libbmi_prosum.so CMakeFiles/bmi_prosum.dir/bmi_prosumf.f90.o   -L/home/ziyfan/PROSUM_BMI/bmi/../src/_build  -L/home/ziyfan/local-bmi/lib64  -Wl,-rpath,/home/ziyfan/PROSUM_BMI/bmi/../src/_build:/home/ziyfan/local-bmi/lib64: -lprosum_core -lbmif 

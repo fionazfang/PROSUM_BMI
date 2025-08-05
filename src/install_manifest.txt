@@ -1,2 +1,1 @@
-/home/ziyfan/local/lib64/libprosum_core.so
-/home/ziyfan/local/include/prosum_module.mod
+/home/ziyfan/local_bmi/lib64/libprosum_core.so

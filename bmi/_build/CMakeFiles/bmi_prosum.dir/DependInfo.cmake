@@ -22,7 +22,7 @@ set(CMAKE_TARGET_DEFINITIONS_Fortran
 # The include file search paths:
 set(CMAKE_Fortran_TARGET_INCLUDE_PATH
   "/home/ziyfan/local-bmi/include"
-  "/home/ziyfan/PROSUM_BMI/bmi/../src"
+  "/home/ziyfan/PROSUM_BMI/bmi/../src/_build"
   )
 
 # The set of dependency files which are needed:

@@ -1,0 +1,1 @@
+/home/ziyfan/local-bmi/lib64/libprosum_core.so

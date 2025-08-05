@@ -1,0 +1,2 @@
+RunLength_Months,MOYstart,SpecificRootLength_mpMC,SpecificMycorLength_mpMC,MaxCfix_Mpm2mo,TempRisePos,TempRiseWidth,TempFallPos,TempFallWidth,PARexponent,WaterUE_MCpm3,CO2Factor,CO2Exponent,ThresholdPlantCForCover_Mpm2,RootDepthBeta,InitLeafC_Mpm2,InitWoodC_Mpm2,InitRootC_Mpm2,InitMycorC_Mpm2
+624,1,50,1400000,52.9,5.5,4.13,35.25,4.45,-0.00180303,522.365,0.424,0.0269,4.2,2.98E-07,0.5,0,0.5,0.5
