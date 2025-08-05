@@ -177,7 +177,7 @@ contains
     real :: temp, par, herbivores
     double precision :: co2
     integer :: tillage, harvest, planttype
-    logical :: plantcover
+    logical :: plantcover = .false.
     integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
     integer :: Num_months_of_parameters, ThisSoilLayer
     character(len=120) :: param_file_path
@@ -187,8 +187,6 @@ contains
     read(10,*) 
     read(10,*) Num_months_of_parameters 
     close(10)
-
-    this%plantcover = .false.
     
     write(*,*) 'Simulation length:', Num_months_of_parameters, 'months'
 
@@ -215,7 +213,6 @@ contains
     tillage = int(Monthly_pars(ThisMonth, 6))
     harvest = int(Monthly_pars(ThisMonth, 7))  
     planttype = int(Monthly_pars(ThisMonth, 8))
-    plantcover = .false.
 
     ! Set up initial nutrients like the original model
     WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
@@ -335,7 +332,6 @@ contains
     tillage = int(Monthly_pars(ThisMonth, 6))    
     harvest = int(Monthly_pars(ThisMonth, 7))   
     planttype = int(Monthly_pars(ThisMonth, 8)) 
-    plantcover = this%plantcover 
 
 
     WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
@@ -356,7 +352,6 @@ contains
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
     
-    this%plantcover = plantcover
 
     bmi_status = BMI_SUCCESS
   end function prosum_update
