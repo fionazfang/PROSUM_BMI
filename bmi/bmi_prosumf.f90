@@ -14,7 +14,7 @@ module bmiprosumf
 
   ! Exchange items
   integer, parameter :: input_item_count = 0      ! In the first version I will not expose any input variable
-  integer, parameter :: output_item_count = 5
+  integer, parameter :: output_item_count = 6
   character (len=BMI_MAX_VAR_NAME), target, dimension(input_item_count) :: input_items
   character (len=BMI_MAX_VAR_NAME), target, dimension(output_item_count) :: output_items
   
@@ -159,6 +159,7 @@ contains
     output_items(3) = 'vegetation__potassium_availability'
     output_items(4) = 'vegetation__carbon_availability'
     output_items(5) = 'vegetation__calcium_availability'
+    output_items(6) = 'vegetation__plant_carbon'      
 
     names => output_items
     bmi_status = BMI_SUCCESS
@@ -644,6 +645,9 @@ end function prosum_update
     case("vegetation__calcium_availability")
        type = "double precision"
        bmi_status = BMI_SUCCESS
+    case("vegetation__plant_carbon")
+       type = "double precision"
+       bmi_status = BMI_SUCCESS
     case default
        type = "-"
        bmi_status = BMI_FAILURE
@@ -695,6 +699,9 @@ end function prosum_update
     case("vegetation__calcium_availability")
        units = "mol m⁻²"
        bmi_status = BMI_SUCCESS
+    case("vegetation__plant_carbon")
+       units = "mol m⁻²"
+       bmi_status = BMI_SUCCESS
     case default
        units = "-"
        bmi_status = BMI_FAILURE
@@ -718,7 +725,8 @@ end function prosum_update
         "vegetation__magnesium_availability",              &
         "vegetation__potassium_availability",              &
         "vegetation__carbon_availability",                 &
-        "vegetation__calcium_availability"                 &
+        "vegetation__calcium_availability",                 &
+        "vegetation__plant_carbon"                 &
       )
         size        = 8
         bmi_status  = BMI_SUCCESS
@@ -773,7 +781,8 @@ end function prosum_update
       "vegetation__magnesium_availability",              &
       "vegetation__potassium_availability",              &
       "vegetation__carbon_availability",                 &
-      "vegetation__calcium_availability"                 &
+      "vegetation__calcium_availability",                &
+      "vegetation__plant_carbon"                         &
     !  "management__tillage_flag",                        &
     !  "management__harvest_flag",                        &
     !  "plant__functional_type_index"                     &
@@ -865,6 +874,9 @@ end function prosum_update
     case ("vegetation__calcium_availability")
        dest(1)    = NutAvail_e(4)
        bmi_status = BMI_SUCCESS
+    case ("vegetation__plant_carbon")
+       dest(1)    = Plant_e(1)
+       bmi_status = BMI_SUCCESS
     case default
        dest(1)    = -1.0d0
        bmi_status = BMI_FAILURE
@@ -920,7 +932,8 @@ end function prosum_update
           "vegetation__magnesium_availability",              &
           "vegetation__potassium_availability",              &
           "vegetation__carbon_availability",                 &
-          "vegetation__calcium_availability")
+          "vegetation__calcium_availability",                &
+          "vegetation__plant_carbon")
        bmi_status = BMI_FAILURE
     case default
        bmi_status = BMI_FAILURE
