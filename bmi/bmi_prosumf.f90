@@ -289,11 +289,12 @@ contains
     ThisMonth = ThisMonth + 1
 
     if (ThisMonth > Month_end) then
-      write(*,*) 'Simulation completed at month', Month_end
-      bmi_status = BMI_FAILURE
-      return
+        write(*,*) 'Simulation completed at month', Month_end
+        bmi_status = BMI_FAILURE
+        return
     end if
 
+    ! Get climate/management data
     temp = Monthly_pars(ThisMonth, 2)       
     par = Monthly_pars(ThisMonth, 3)        
     co2 = Monthly_pars(ThisMonth, 4)        
@@ -302,27 +303,27 @@ contains
     harvest = int(Monthly_pars(ThisMonth, 7))   
     planttype = int(Monthly_pars(ThisMonth, 8))  
     plantcover = .false.  
-    
 
-    ! 31/07/2005 DEBUG: Print values before PROSUM call
-    write(*,*) '=== BMI UPDATE DEBUG ==='
-    write(*,*) 'ThisMonth =', ThisMonth
-    write(*,*) 'Array bounds: Monthly_pars =', shape(Monthly_pars)
-    write(*,*) 'temp =', temp
-    write(*,*) 'par =', par
-    write(*,*) 'co2 =', co2
-    write(*,*) 'About to call PROSUM...'
+    ! Calculate nutrient availabilities like the original model does
+    WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
+
+    NutAvail_es(2,:) = Monthly_nutrients(ThisMonth, 6:9)   ! N by soil layer
+    NutAvail_es(3,:) = Monthly_nutrients(ThisMonth, 10:13) ! P by soil layer
+    NutAvail_es(4,:) = Monthly_nutrients(ThisMonth, 14:17) ! Ca by soil layer
+    NutAvail_es(5,:) = Monthly_nutrients(ThisMonth, 18:21) ! Mg by soil layer
+    NutAvail_es(6,:) = Monthly_nutrients(ThisMonth, 22:25) ! K by soil layer
+
+    ! Sum across soil layers to get total availability
+    NutAvail_e(2) = NutAvail_es(2,1) + NutAvail_es(2,2) + NutAvail_es(2,3) + NutAvail_es(2,4) ! N
+    NutAvail_e(3) = NutAvail_es(3,1) + NutAvail_es(3,2) + NutAvail_es(3,3) + NutAvail_es(3,4) ! P
+    NutAvail_e(4) = NutAvail_es(4,1) + NutAvail_es(4,2) + NutAvail_es(4,3) + NutAvail_es(4,4) ! Ca
+    NutAvail_e(5) = NutAvail_es(5,1) + NutAvail_es(5,2) + NutAvail_es(5,3) + NutAvail_es(5,4) ! Mg
+    NutAvail_e(6) = NutAvail_es(6,1) + NutAvail_es(6,2) + NutAvail_es(6,3) + NutAvail_es(6,4) ! K
     
     call PROSUM(2, 1, ThisMonth, temp, par, co2, &
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
-
-    write(*,*) 'AFTER PROSUM CALL - NutAvail_e values:'
-    write(*,*) 'C =', NutAvail_e(1), 'N =', NutAvail_e(2)
-    write(*,*) 'P =', NutAvail_e(3), 'Ca=', NutAvail_e(4) 
-    write(*,*) 'Mg=', NutAvail_e(5), 'K =', NutAvail_e(6)
     
-
     bmi_status = BMI_SUCCESS
 end function prosum_update
 
