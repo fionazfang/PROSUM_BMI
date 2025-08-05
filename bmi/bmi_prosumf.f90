@@ -187,6 +187,8 @@ contains
     read(10,*) 
     read(10,*) Num_months_of_parameters 
     close(10)
+
+    this%plantcover = .false.
     
     write(*,*) 'Simulation length:', Num_months_of_parameters, 'months'
 
@@ -310,13 +312,13 @@ contains
     implicit none
     class (bmi_prosum), intent(inout) :: this
     integer :: bmi_status
-    
+
     real :: temp, par, herbivores
     double precision :: co2
     integer :: tillage, harvest, planttype
     logical :: plantcover
     integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
-    
+
     ThisMonth = ThisMonth + 1
 
     if (ThisMonth > Month_end) then
@@ -324,7 +326,7 @@ contains
         bmi_status = BMI_FAILURE
         return
     end if
-
+    
     ! Get climate/management data
     temp = Monthly_pars(ThisMonth, 2)       
     par = Monthly_pars(ThisMonth, 3)        
@@ -332,11 +334,10 @@ contains
     herbivores = Monthly_pars(ThisMonth, 5) 
     tillage = int(Monthly_pars(ThisMonth, 6))    
     harvest = int(Monthly_pars(ThisMonth, 7))   
-    planttype = int(Monthly_pars(ThisMonth, 8))  
-    plantcover = .false.  
+    planttype = int(Monthly_pars(ThisMonth, 8)) 
+    plantcover = this%plantcover 
 
-    ! Calculate nutrient availabilities like the original model does
-    ! This is for initialization or for update? 
+
     WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
 
     NutAvail_es(2,:) = Monthly_nutrients(ThisMonth, 6:9)   ! N by soil layer
@@ -345,7 +346,6 @@ contains
     NutAvail_es(5,:) = Monthly_nutrients(ThisMonth, 18:21) ! Mg by soil layer
     NutAvail_es(6,:) = Monthly_nutrients(ThisMonth, 22:25) ! K by soil layer
 
-    ! Sum across soil layers to get total availability
     NutAvail_e(2) = NutAvail_es(2,1) + NutAvail_es(2,2) + NutAvail_es(2,3) + NutAvail_es(2,4) ! N
     NutAvail_e(3) = NutAvail_es(3,1) + NutAvail_es(3,2) + NutAvail_es(3,3) + NutAvail_es(3,4) ! P
     NutAvail_e(4) = NutAvail_es(4,1) + NutAvail_es(4,2) + NutAvail_es(4,3) + NutAvail_es(4,4) ! Ca
@@ -356,8 +356,10 @@ contains
                 herbivores, tillage, harvest, planttype, plantcover, &
                 nlayer, nnutrient, nplantbits, nplanttypes)
     
+    this%plantcover = plantcover
+
     bmi_status = BMI_SUCCESS
-end function prosum_update
+  end function prosum_update
 
   ! Advance the model until the given time.
   function prosum_update_until(this, time) result (bmi_status)
@@ -404,7 +406,8 @@ end function prosum_update
 		  "vegetation__magnesium_availability", &
 		  "vegetation__potassium_availability", &
 		  "vegetation__carbon_availability", &
-		  "vegetation__calcium_availability" )
+		  "vegetation__calcium_availability", &
+      "vegetation__plant_carbon" )
 	  grid  = 0
 	  status = BMI_SUCCESS
 	  
