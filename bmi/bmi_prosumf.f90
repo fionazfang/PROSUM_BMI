@@ -243,11 +243,14 @@ contains
     class (bmi_prosum), intent(inout) :: this
     integer :: bmi_status
 
-    call PROSUM(3, 1, ThisMonth, 0.0, 0.0, 0.0d0, &
-                0.0, 0, 0, 1, .false., &
-                4, 6, 5, 6)
+    ! run the terminal PROSUM phase
+    call PROSUM(3,1,ThisMonth,0.0,0.0,0.0d0,0.0,0,0,1,.false.,4,6,5,6)
 
-    call SoilTrECProsum_deallocate()
+    ! only call the module's deallocator if its big arrays really exist
+    if (allocated(Monthly_pars)) then
+      call SoilTrECProsum_deallocate()
+    end if
+
     bmi_status = BMI_SUCCESS
   end function prosum_finalize
 
