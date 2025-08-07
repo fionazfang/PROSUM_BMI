@@ -179,7 +179,7 @@ contains
     integer :: tillage, harvest, planttype
     logical :: plantcover = .false.
     integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
-    integer :: Num_months_of_parameters, ThisSoilLayer
+    integer :: Num_months_of_parameters, ThisSoilLayer, Month_end
     character(len=120) :: param_file_path
 
     param_file_path = "PROSUM_parameters.csv"
@@ -188,7 +188,9 @@ contains
     read(10,*) Num_months_of_parameters 
     close(10)
     
-    write(*,*) 'Simulation length:', Num_months_of_parameters, 'months'
+    Month_end = Num_months_of_parameters
+
+    ! write(*,*) 'Simulation length:', Num_months_of_parameters, 'months'
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
     call FillArrays(Num_months_of_parameters, StandAlone=1)
@@ -316,8 +318,6 @@ contains
     logical :: plantcover
     integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
 
-    ThisMonth = ThisMonth + 1
-
     if (ThisMonth > Month_end) then
         write(*,*) 'Simulation completed at month', Month_end
         bmi_status = BMI_FAILURE
@@ -332,8 +332,6 @@ contains
     tillage = int(Monthly_pars(ThisMonth, 6))    
     harvest = int(Monthly_pars(ThisMonth, 7))   
     planttype = int(Monthly_pars(ThisMonth, 8)) 
-
-
     WaterAvail_s = Monthly_nutrients(ThisMonth, 2:5)
 
     NutAvail_es(2,:) = Monthly_nutrients(ThisMonth, 6:9)   ! N by soil layer
@@ -348,10 +346,12 @@ contains
     NutAvail_e(5) = NutAvail_es(5,1) + NutAvail_es(5,2) + NutAvail_es(5,3) + NutAvail_es(5,4) ! Mg
     NutAvail_e(6) = NutAvail_es(6,1) + NutAvail_es(6,2) + NutAvail_es(6,3) + NutAvail_es(6,4) ! K
     
-    call PROSUM(2, 1, ThisMonth, temp, par, co2, &
-                herbivores, tillage, harvest, planttype, plantcover, &
-                nlayer, nnutrient, nplantbits, nplanttypes)
+    plantcover = .TRUE.
     
+    call PROSUM(2, 1, ThisMonth, temp, par, co2, &
+        herbivores, tillage, harvest, planttype, plantcover, &
+        nlayer, nnutrient, nplantbits, nplanttypes)
+    ThisMonth = ThisMonth + 1
 
     bmi_status = BMI_SUCCESS
   end function prosum_update
