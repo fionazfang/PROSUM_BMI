@@ -179,7 +179,7 @@ contains
     integer :: tillage, harvest, planttype
     logical :: plantcover = .false.
     integer :: nlayer = 4, nnutrient = 6, nplantbits = 5, nplanttypes = 6
-    integer :: Num_months_of_parameters, ThisSoilLayer, Month_end
+    integer :: Num_months_of_parameters, ThisSoilLayer
     character(len=120) :: param_file_path
 
     param_file_path = "PROSUM_parameters.csv"
@@ -188,8 +188,6 @@ contains
     read(10,*) Num_months_of_parameters 
     close(10)
     
-    Month_end = Num_months_of_parameters
-
     ! write(*,*) 'Simulation length:', Num_months_of_parameters, 'months'
 
     call SoilTrECProsum_allocate(nlayer, nnutrient, nplantbits, nplanttypes, Num_months_of_parameters)
@@ -347,7 +345,7 @@ contains
     NutAvail_e(6) = NutAvail_es(6,1) + NutAvail_es(6,2) + NutAvail_es(6,3) + NutAvail_es(6,4) ! K
     
     plantcover = .TRUE.
-    
+
     call PROSUM(2, 1, ThisMonth, temp, par, co2, &
         herbivores, tillage, harvest, planttype, plantcover, &
         nlayer, nnutrient, nplantbits, nplanttypes)
