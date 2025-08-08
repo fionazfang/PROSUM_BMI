@@ -1,0 +1,13 @@
+
+name: wrap-prosum
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - cmake
+  - make
+  - pkg-config
+  - fortran-compiler
+  - bmi-fortran
+  - babelizer
+  - bmi-tester
+  - pymt>=1.3
