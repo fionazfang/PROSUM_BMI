@@ -1,0 +1,28 @@
+[library.ProsumF]
+language="fortran"
+library="bmiprosumf"
+header=""
+entry_point="bmiprosumf"
+
+[build]
+undef_macros=[]
+define_macros=[]
+libraries=[]
+library_dirs=[]
+include_dirs=[]
+extra_compile_args=[]
+
+[package]
+name="pymt_prosum"
+requirements=[]
+
+[info]
+github_username="fionazfang"
+package_author="Ziyan (Fiona) Fang"
+package_author_email="zf276@cam.ac.uk"
+package_license="MIT License"
+summary="PyMT-accessible Python wrapper for the PROSUM BMI (Fortran)."
+
+[ci]
+python_version=["3.11"]
+os=["linux","mac","windows"]

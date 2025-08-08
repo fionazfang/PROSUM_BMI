@@ -1,0 +1,46 @@
+# See https://babelizer.readthedocs.io/ for more information
+
+# Describe the library being wrapped.
+[library.Monorail]
+language = "c"
+library = "bmimonorail"
+header = "monorail.h"
+entry_point = "register_monorail"
+
+# Describe compiler options need to build the library being
+# wrapped.
+[build]
+undef_macros = []
+define_macros = []
+libraries = []
+library_dirs = []
+include_dirs = []
+extra_compile_args = []
+
+# Describe the newly wrapped package.
+[package]
+name = "springfield_monorail"
+requirements = ["three_million_dollars"]
+
+[info]
+github_username = "lyle-lanley"
+package_author = "Lyle Lanley"
+package_author_email = "lyle@monorail.com"
+package_license = "MIT License"
+summary = '''
+Well, sir, there's nothing on Earth like a genuine,
+bona fide, electrified, six-car monorail. What'd I say?
+Monorail! What's it called? Monorail! That's right! Monorail!
+'''
+
+[ci]
+python_version = [
+    "3.10",
+    "3.11",
+    "3.12",
+]
+os = [
+    "linux",
+    "mac",
+    "windows",
+]
